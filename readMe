@@ -1,6 +1,6 @@
-										Tema #2 - ALGORITMI PARALELI SI DISTRIBUITI
-									Procesarea documentelor folosind paradigma Map-Reduce
-											Implementare : Lavinia Tache - 332CA
+				Tema #2 - ALGORITMI PARALELI SI DISTRIBUITI
+					Procesarea documentelor folosind paradigma Map-Reduce
+						Implementare : Lavinia Tache - 332CA
 
 		Tema cere implementarea unui program paralel Java pentru procesarea unui set de documente text primit ca input si apoi evaluarea lungimilor
 	cuvintelor si frecventa cu care acestea apar. Fiecare cuvant va avea o valoarea asociata, in functie de numarul de litere. Valorea unui cuvant este
