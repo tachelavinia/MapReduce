@@ -1,0 +1,22 @@
+										Tema #2 - ALGORITMI PARALELI SI DISTRIBUITI
+									Procesarea documentelor folosind paradigma Map-Reduce
+											Implementare : Lavinia Tache - 332CA
+
+		Tema cere implementarea unui program paralel Java pentru procesarea unui set de documente text primit ca input si apoi evaluarea lungimilor
+	cuvintelor si frecventa cu care acestea apar. Fiecare cuvant va avea o valoarea asociata, in functie de numarul de litere. Valorea unui cuvant este
+	determinata de indexul din sirul lui Fibonacci corespunzator lungimii cuvantului. Rangului unui document se calculeaza insumand valorilor tuturor
+	cuvintelor din acesta. In plus, pentru fiecare document se va stabili si cuvantul de dimensiune maxima. 
+		Pentru implementarea temei de va folosi modelul Replicated Workers. Astfel, procesarea se va realiza in doi pasi importanti: Map & Reduce.
+	Map presupune citirea documentului si impartirea acestuia in fragmente de dimensiune fixa(primita ca input) de catre thread-ul master, iar apoi
+	procesarea fragmentelor de catre workeri. Se mentioneaza ca thread-ul master nu poate salva in memoria fragmentul pe care urmeaza sa il proceseze fiecare worker, ci aceasta primeste indicele de start si de sfarsit urmand ulterior sa deschida fisier, sa citeasca fragmentul si sa il proceseze. Fiind nevoie sa ma
+	pot situa in fisier la pozitii random pentru fiecare threaed citirea se realizeaza in RandomAccessFile in bytes. De asemenea, exista si conventia conform careia daca unul dintre indecsi este in interiorul unui cuvant aceasta va fi ignorat(cazul start) / va fi procesat pana la final(caz end). Atfel, fiecare thread, inainte de a incepe procesarea verifica daca indecsii primiti sau valizi sau ar trebui modificati. Rezultatul va fi reprezentat de hash-uri partiale
+	in care vom memoria lungimile cuvintelor si numarul de aparitii.
+		Operatia principala Reduce poate impartita in doua task-uri : etapa de combinare & etapa de procesare. In cazul etapei de combinare se vor combina 
+	hash-uri obtinute in etapa de map pentru a obitine ReducedHash - un hash general intreg documentul. Etapa de procesare consta in calcularea rangului unui document folosind formula stabilita si sirul lui Fibonacci. 
+
+		Fiind un algoritm paralel, am ales sa demonstrez scalabilitatea prin rularea pe cluster a testului 4 pe 8, 4, 2 si un singur thread. 
+	Rezultatele obtinute sunt(in milisecunde):
+		1 thread     : 4641
+		2 thread-uri : 4288
+		4 thread-uri : 3087
+		8 thread-uri : 3001
